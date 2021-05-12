@@ -1,0 +1,451 @@
+;/*******************************************************
+;This program was created by the
+;CodeWizardAVR V3.12 Advanced
+;Automatic Program Generator
+;© Copyright 1998-2014 Pavel Haiduc, HP InfoTech s.r.l.
+;http://www.hpinfotech.com
+;
+;Project :
+;Version :
+;Date    : 11/8/2020
+;Author  :
+;Company :
+;Comments:
+;
+;
+;Chip type               : ATmega16
+;Program type            : Application
+;AVR Core Clock frequency: 8.000000 MHz
+;Memory model            : Small
+;External RAM size       : 0
+;Data Stack size         : 256
+;*******************************************************/
+;
+;#include <header.h>
+;PCODE: $00000000 VOL: 0
+	#ifndef __SLEEP_DEFINED__
+;PCODE: $00000001 VOL: 0
+	#define __SLEEP_DEFINED__
+;PCODE: $00000002 VOL: 0
+	.EQU __se_bit=0x40
+;PCODE: $00000003 VOL: 0
+	.EQU __sm_mask=0xB0
+;PCODE: $00000004 VOL: 0
+	.EQU __sm_powerdown=0x20
+;PCODE: $00000005 VOL: 0
+	.EQU __sm_powersave=0x30
+;PCODE: $00000006 VOL: 0
+	.EQU __sm_standby=0xA0
+;PCODE: $00000007 VOL: 0
+	.EQU __sm_ext_standby=0xB0
+;PCODE: $00000008 VOL: 0
+	.EQU __sm_adc_noise_red=0x10
+;PCODE: $00000009 VOL: 0
+	.SET power_ctrl_reg=mcucr
+;PCODE: $0000000A VOL: 0
+	#endif
+;PCODE: $0000000B VOL: 0
+;PCODE: $0000000C VOL: 0
+;
+;// Declare your global variables here
+;char buffer[60];
+;int dor=0;
+;int i=0,flag=0;
+;int phase_sp=0;
+;// Timer1 overflow interrupt service routine
+;interrupt [TIM1_OVF] void timer1_ovf_isr(void)
+; 0000 0021 {
+
+	.CSEG
+;PCODE: $0000000D VOL: 0
+;PCODE: $0000000E VOL: 0
+; 0000 0022 // Reinitialize Timer1 value
+; 0000 0023 TCNT1H=0x85EE >> 8;
+;PCODE: $0000000F VOL: 0
+;PCODE: $00000010 VOL: 0
+; 0000 0024 TCNT1L=0x85EE & 0xff;
+;PCODE: $00000011 VOL: 0
+;PCODE: $00000012 VOL: 0
+; 0000 0025 // Place your code here
+; 0000 0026 
+; 0000 0027 }
+;PCODE: $00000013 VOL: 0
+;PCODE: $00000014 VOL: 0
+;PCODE: $00000015 VOL: 0
+;
+;// Timer1 input capture interrupt service routine
+;interrupt [TIM1_CAPT] void timer1_capt_isr(void)
+; 0000 002B {
+;PCODE: $00000016 VOL: 0
+;PCODE: $00000017 VOL: 0
+; 0000 002C // Place your code here
+; 0000 002D 
+; 0000 002E }
+;PCODE: $00000018 VOL: 0
+;PCODE: $00000019 VOL: 0
+;PCODE: $0000001A VOL: 0
+;
+;// Timer2 output compare interrupt service routine
+;interrupt [TIM2_COMP] void timer2_comp_isr(void)
+; 0000 0032 {
+;PCODE: $0000001B VOL: 0
+;PCODE: $0000001C VOL: 0
+; 0000 0033 lcd_clear();
+;PCODE: $0000001D VOL: 0
+; 0000 0034 //it needs 4 pulses for one rotate so speed=(1000/(4*65.26))*60=229.8
+; 0000 0035 sprintf(buffer,"speed:%d.%d RPM",229,8);
+;PCODE: $0000001E VOL: 0
+;PCODE: $0000001F VOL: 0
+;PCODE: $00000020 VOL: 0
+;PCODE: $00000021 VOL: 0
+;PCODE: $00000022 VOL: 0
+;PCODE: $00000023 VOL: 0
+;PCODE: $00000024 VOL: 0
+;PCODE: $00000025 VOL: 0
+;PCODE: $00000026 VOL: 0
+;PCODE: $00000027 VOL: 0
+;PCODE: $00000028 VOL: 0
+;PCODE: $00000029 VOL: 0
+;PCODE: $0000002A VOL: 0
+; 0000 0036 lcd_puts(&buffer[0]);
+;PCODE: $0000002B VOL: 0
+;PCODE: $0000002C VOL: 0
+; 0000 0037 i++;
+;PCODE: $0000002D VOL: 0
+;PCODE: $0000002E VOL: 0
+;PCODE: $0000002F VOL: 0
+; 0000 0038     if(i<=100){
+;PCODE: $00000030 VOL: 0
+;PCODE: $00000031 VOL: 0
+;PCODE: $00000032 VOL: 0
+; 0000 0039         i++;
+;PCODE: $00000033 VOL: 0
+;PCODE: $00000034 VOL: 0
+;PCODE: $00000035 VOL: 0
+; 0000 003A         switch(phase_sp){
+;PCODE: $00000036 VOL: 0
+; 0000 003B         case 0:
+;PCODE: $00000037 VOL: 0
+;PCODE: $00000038 VOL: 0
+; 0000 003C             PORTB= PORTB &(0b00001111);
+;PCODE: $00000039 VOL: 0
+;PCODE: $0000003A VOL: 0
+;PCODE: $0000003B VOL: 0
+; 0000 003D             PORTB= PORTB |(0b00010000);
+;PCODE: $0000003C VOL: 0
+;PCODE: $0000003D VOL: 0
+; 0000 003E             phase_sp++;
+;PCODE: $0000003E VOL: 0
+;PCODE: $0000003F VOL: 0
+;PCODE: $00000040 VOL: 0
+; 0000 003F             //delay_ms(1000);
+; 0000 0040             break;
+;PCODE: $00000041 VOL: 0
+; 0000 0041         case 1:
+;PCODE: $00000042 VOL: 0
+;PCODE: $00000043 VOL: 0
+;PCODE: $00000044 VOL: 0
+; 0000 0042             PORTB= PORTB &(0b00001111);
+;PCODE: $00000045 VOL: 0
+;PCODE: $00000046 VOL: 0
+;PCODE: $00000047 VOL: 0
+; 0000 0043             PORTB= PORTB |(0b00100000);
+;PCODE: $00000048 VOL: 0
+;PCODE: $00000049 VOL: 0
+; 0000 0044             phase_sp++;
+;PCODE: $0000004A VOL: 0
+;PCODE: $0000004B VOL: 0
+;PCODE: $0000004C VOL: 0
+; 0000 0045             //delay_ms(1000);
+; 0000 0046             break;
+;PCODE: $0000004D VOL: 0
+; 0000 0047         case 2:
+;PCODE: $0000004E VOL: 0
+;PCODE: $0000004F VOL: 0
+;PCODE: $00000050 VOL: 0
+; 0000 0048             PORTB= PORTB &(0b00001111);
+;PCODE: $00000051 VOL: 0
+;PCODE: $00000052 VOL: 0
+;PCODE: $00000053 VOL: 0
+; 0000 0049             PORTB= PORTB |(0b01000000);
+;PCODE: $00000054 VOL: 0
+;PCODE: $00000055 VOL: 0
+; 0000 004A             phase_sp++;
+;PCODE: $00000056 VOL: 0
+;PCODE: $00000057 VOL: 0
+;PCODE: $00000058 VOL: 0
+; 0000 004B             //delay_ms(1000);
+; 0000 004C             break;
+;PCODE: $00000059 VOL: 0
+; 0000 004D         case 3:
+;PCODE: $0000005A VOL: 0
+;PCODE: $0000005B VOL: 0
+;PCODE: $0000005C VOL: 0
+; 0000 004E             PORTB= PORTB &(0b00001111);
+;PCODE: $0000005D VOL: 0
+;PCODE: $0000005E VOL: 0
+;PCODE: $0000005F VOL: 0
+; 0000 004F             PORTB= PORTB |(0b10000000);
+;PCODE: $00000060 VOL: 0
+;PCODE: $00000061 VOL: 0
+; 0000 0050             phase_sp=0;
+;PCODE: $00000062 VOL: 0
+; 0000 0051             //dor++;
+; 0000 0052             //delay_ms(1000);
+; 0000 0053             break;
+;PCODE: $00000063 VOL: 0
+; 0000 0054         }
+;PCODE: $00000064 VOL: 0
+; 0000 0055         if(i==101)
+;PCODE: $00000065 VOL: 0
+;PCODE: $00000066 VOL: 0
+;PCODE: $00000067 VOL: 0
+; 0000 0056         {
+; 0000 0057             delay_ms(1000);
+;PCODE: $00000068 VOL: 0
+;PCODE: $00000069 VOL: 0
+; 0000 0058         }
+; 0000 0059     }
+;PCODE: $0000006A VOL: 0
+; 0000 005A     else if(i>100)
+;PCODE: $0000006B VOL: 0
+;PCODE: $0000006C VOL: 0
+;PCODE: $0000006D VOL: 0
+;PCODE: $0000006E VOL: 0
+;PCODE: $0000006F VOL: 0
+; 0000 005B     {   i++;
+;PCODE: $00000070 VOL: 0
+;PCODE: $00000071 VOL: 0
+;PCODE: $00000072 VOL: 0
+; 0000 005C 
+; 0000 005D         switch(phase_sp){
+;PCODE: $00000073 VOL: 0
+; 0000 005E         case 3:
+;PCODE: $00000074 VOL: 0
+;PCODE: $00000075 VOL: 0
+; 0000 005F             PORTB= PORTB &(0b00001111);
+;PCODE: $00000076 VOL: 0
+;PCODE: $00000077 VOL: 0
+;PCODE: $00000078 VOL: 0
+; 0000 0060             PORTB= PORTB |(0b00010000);
+;PCODE: $00000079 VOL: 0
+;PCODE: $0000007A VOL: 0
+; 0000 0061             phase_sp=0;
+;PCODE: $0000007B VOL: 0
+; 0000 0062             //dor++;
+; 0000 0063             //delay_ms(1000);
+; 0000 0064             break;
+;PCODE: $0000007C VOL: 0
+; 0000 0065         case 2:
+;PCODE: $0000007D VOL: 0
+;PCODE: $0000007E VOL: 0
+;PCODE: $0000007F VOL: 0
+; 0000 0066             PORTB= PORTB &(0b00001111);
+;PCODE: $00000080 VOL: 0
+;PCODE: $00000081 VOL: 0
+;PCODE: $00000082 VOL: 0
+; 0000 0067             PORTB= PORTB |(0b00100000);
+;PCODE: $00000083 VOL: 0
+;PCODE: $00000084 VOL: 0
+; 0000 0068             phase_sp++;
+;PCODE: $00000085 VOL: 0
+;PCODE: $00000086 VOL: 0
+;PCODE: $00000087 VOL: 0
+; 0000 0069             //delay_ms(1000);
+; 0000 006A             break;
+;PCODE: $00000088 VOL: 0
+; 0000 006B         case 1:
+;PCODE: $00000089 VOL: 0
+;PCODE: $0000008A VOL: 0
+;PCODE: $0000008B VOL: 0
+; 0000 006C             PORTB= PORTB &(0b00001111);
+;PCODE: $0000008C VOL: 0
+;PCODE: $0000008D VOL: 0
+;PCODE: $0000008E VOL: 0
+; 0000 006D             PORTB= PORTB |(0b01000000);
+;PCODE: $0000008F VOL: 0
+;PCODE: $00000090 VOL: 0
+; 0000 006E             phase_sp++;
+;PCODE: $00000091 VOL: 0
+;PCODE: $00000092 VOL: 0
+;PCODE: $00000093 VOL: 0
+; 0000 006F             //delay_ms(1000);
+; 0000 0070             break;
+;PCODE: $00000094 VOL: 0
+; 0000 0071         case 0:
+;PCODE: $00000095 VOL: 0
+;PCODE: $00000096 VOL: 0
+;PCODE: $00000097 VOL: 0
+; 0000 0072             PORTB= PORTB &(0b00001111);
+;PCODE: $00000098 VOL: 0
+;PCODE: $00000099 VOL: 0
+;PCODE: $0000009A VOL: 0
+; 0000 0073             PORTB= PORTB |(0b10000000);
+;PCODE: $0000009B VOL: 0
+;PCODE: $0000009C VOL: 0
+; 0000 0074             phase_sp++;
+;PCODE: $0000009D VOL: 0
+;PCODE: $0000009E VOL: 0
+;PCODE: $0000009F VOL: 0
+; 0000 0075             //delay_ms(1000);
+; 0000 0076             break;
+;PCODE: $000000A0 VOL: 0
+; 0000 0077         }
+;PCODE: $000000A1 VOL: 0
+; 0000 0078         if(i==200)
+;PCODE: $000000A2 VOL: 0
+;PCODE: $000000A3 VOL: 0
+;PCODE: $000000A4 VOL: 0
+; 0000 0079         {
+; 0000 007A             i=0;
+;PCODE: $000000A5 VOL: 0
+; 0000 007B             delay_ms(1000);
+;PCODE: $000000A6 VOL: 0
+;PCODE: $000000A7 VOL: 0
+; 0000 007C         }
+; 0000 007D     }
+;PCODE: $000000A8 VOL: 0
+; 0000 007E }
+;PCODE: $000000A9 VOL: 0
+;PCODE: $000000AA VOL: 0
+;PCODE: $000000AB VOL: 0
+;PCODE: $000000AC VOL: 0
+;PCODE: $000000AD VOL: 0
+;
+;
+;
+;
+;
+;void sub1()
+; 0000 0085 {
+;PCODE: $000000AE VOL: 0
+;PCODE: $000000AF VOL: 0
+; 0000 0086 //OCR0=0x1A;
+; 0000 0087 //OCR0=0x4D;
+; 0000 0088 //OCR0=0x80;
+; 0000 0089 //OCR0=0xB2;
+; 0000 008A OCR0=0xE5;
+;PCODE: $000000B0 VOL: 0
+;PCODE: $000000B1 VOL: 0
+; 0000 008B delay_ms(5000);
+;PCODE: $000000B2 VOL: 0
+;PCODE: $000000B3 VOL: 0
+; 0000 008C }
+;PCODE: $000000B4 VOL: 0
+;PCODE: $000000B5 VOL: 0
+;
+;// sub2 IS ON PDF FILE
+;// y=2.55*x+0.5
+;
+;
+;void sub3()
+; 0000 0093 {
+;PCODE: $000000B6 VOL: 0
+;PCODE: $000000B7 VOL: 0
+; 0000 0094 // 0 input means 5% dutycycle and 255 means 95%
+; 0000 0095 // so the line given by these twe points will be
+; 0000 0096 // IN y=ax+b => a=(95-5)/(255-0)=0.35  AND  b=5 so dutycycle = y = 0.35*x + 5
+; 0000 0097 float y1,y2;
+; 0000 0098 int w=0,i;
+; 0000 0099 while(w<30)
+;PCODE: $000000B8 VOL: 0
+;PCODE: $000000B9 VOL: 0
+;	y1 -> Y+8
+;	y2 -> Y+4
+;	w -> R16,R17
+;	i -> R18,R19
+;PCODE: $000000BA VOL: 0
+;PCODE: $000000BB VOL: 0
+;PCODE: $000000BC VOL: 0
+;PCODE: $000000BD VOL: 0
+;PCODE: $000000BE VOL: 0
+;PCODE: $000000BF VOL: 0
+; 0000 009A {
+; 0000 009B     w++;
+;PCODE: $000000C0 VOL: 0
+;PCODE: $000000C1 VOL: 0
+; 0000 009C     i=PINA;
+;PCODE: $000000C2 VOL: 0
+;PCODE: $000000C3 VOL: 0
+;PCODE: $000000C4 VOL: 0
+; 0000 009D     y1=(i*0.35)+5;
+;PCODE: $000000C5 VOL: 0
+;PCODE: $000000C6 VOL: 0
+;PCODE: $000000C7 VOL: 0
+;PCODE: $000000C8 VOL: 0
+;PCODE: $000000C9 VOL: 0
+;PCODE: $000000CA VOL: 0
+;PCODE: $000000CB VOL: 0
+; 0000 009E     y2=(y1*2.55)+0.5;
+;PCODE: $000000CC VOL: 0
+;PCODE: $000000CD VOL: 0
+;PCODE: $000000CE VOL: 0
+;PCODE: $000000CF VOL: 0
+;PCODE: $000000D0 VOL: 0
+;PCODE: $000000D1 VOL: 0
+; 0000 009F     OCR0=(int)y2;
+;PCODE: $000000D2 VOL: 0
+;PCODE: $000000D3 VOL: 0
+;PCODE: $000000D4 VOL: 0
+; 0000 00A0     lcd_clear();
+;PCODE: $000000D5 VOL: 0
+; 0000 00A1     sprintf(buffer,"OCR0=%d",(int)y2);
+;PCODE: $000000D6 VOL: 0
+;PCODE: $000000D7 VOL: 0
+;PCODE: $000000D8 VOL: 0
+;PCODE: $000000D9 VOL: 0
+;PCODE: $000000DA VOL: 0
+;PCODE: $000000DB VOL: 0
+;PCODE: $000000DC VOL: 0
+;PCODE: $000000DD VOL: 0
+;PCODE: $000000DE VOL: 0
+;PCODE: $000000DF VOL: 0
+;PCODE: $000000E0 VOL: 0
+;PCODE: $000000E1 VOL: 0
+;PCODE: $000000E2 VOL: 0
+; 0000 00A2     lcd_puts(&buffer[0]);
+;PCODE: $000000E3 VOL: 0
+;PCODE: $000000E4 VOL: 0
+; 0000 00A3     delay_ms(1000);
+;PCODE: $000000E5 VOL: 0
+;PCODE: $000000E6 VOL: 0
+; 0000 00A4 
+; 0000 00A5 }
+;PCODE: $000000E7 VOL: 0
+;PCODE: $000000E8 VOL: 0
+; 0000 00A6 
+; 0000 00A7 lcd_clear();
+;PCODE: $000000E9 VOL: 0
+; 0000 00A8 }
+;PCODE: $000000EA VOL: 0
+;PCODE: $000000EB VOL: 0
+;PCODE: $000000EC VOL: 0
+;PCODE: $000000ED VOL: 0
+;
+;
+;void main(void)
+; 0000 00AC {
+;PCODE: $000000EE VOL: 0
+; 0000 00AD init_all();
+;PCODE: $000000EF VOL: 0
+; 0000 00AE sub1();
+;PCODE: $000000F0 VOL: 0
+; 0000 00AF sub3();
+;PCODE: $000000F1 VOL: 0
+; 0000 00B0 #asm("sei")
+;PCODE: $000000F2 VOL: 0
+	sei
+;PCODE: $000000F3 VOL: 0
+; 0000 00B1 
+; 0000 00B2 while (1)
+;PCODE: $000000F4 VOL: 0
+; 0000 00B3       {
+; 0000 00B4       // Place your code here
+; 0000 00B5 
+; 0000 00B6       }
+;PCODE: $000000F5 VOL: 0
+;PCODE: $000000F6 VOL: 0
+; 0000 00B7 }
+;PCODE: $000000F7 VOL: 0
+;PCODE: $000000F8 VOL: 0
+;PCODE: $000000F9 VOL: 0

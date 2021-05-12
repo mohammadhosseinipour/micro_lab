@@ -1,0 +1,2 @@
+main DSTACK_USAGE:4 DSTACK_LEVEL:4 FILE:"source\section1-(1-9).c" LINE:54
+show1 DSTACK_USAGE:4 DSTACK_LEVEL:8 FILE:"source\section1-(1-9).c" LINE:30

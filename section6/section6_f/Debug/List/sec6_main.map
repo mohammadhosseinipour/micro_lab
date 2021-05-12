@@ -1,0 +1,44 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+buffer                                                                            0x0160      50
+flag                                                                              0x0192       2
+adc_data                                                                          0x0194      16
+input_index                                                                       0x01A4       1
+_base_y                                                                           0x01A5       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+_lcd_x                                                                            R5           1
+_lcd_y                                                                            R4           1
+_lcd_maxx                                                                         R7           1
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+main                                                                              0x00078     12
+port_timer_lcd_init                                                               0x00084     25
+sub1_sub3_init                                                                    0x0009D      8
+sub2_init                                                                         0x000A5      9
+read_adc                                                                          0x000AE     15
+sub1                                                                              0x000BD     53
+sub3                                                                              0x000F2     38
+sub2                                                                              0x00118     50
+adc_isr                                                                           0x0014A     98
+put_buff_G100                                                                     0x001AC     64
+_print_G100                                                                       0x001EC    308
+sprintf                                                                           0x00320     52
+_lcd_write_nibble_G101                                                            0x00354     20
+_lcd_write_data                                                                   0x00368     12
+lcd_gotoxy                                                                        0x00374     13
+lcd_clear                                                                         0x00381     12
+lcd_putchar                                                                       0x0038D     21
+lcd_puts                                                                          0x003A2     17
+lcd_init                                                                          0x003B3     46
+strlen                                                                            0x003E1     12
+strlenf                                                                           0x003ED     13

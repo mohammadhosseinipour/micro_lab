@@ -1,0 +1,9 @@
+VERSION:3 SOURCE_TIMESTAMP:5193B8AC
+NODE:I LEVEL:0 LINE:1 "C:\cvavr\BIN\micro LAB\section8\source\header.h"
+NODE:C LEVEL:0 LINE:3 "sec816x8 -> FLASH"
+NODE:C LEVEL:0 LINE:7 "pic -> FLASH"
+NODE:F LEVEL:0 LINE:280 "sub1(void)"
+NODE:F LEVEL:0 LINE:322 "init_all(void)"
+NODE:F LEVEL:0 LINE:384 "sub2(void)"
+NODE:F LEVEL:0 LINE:391 "clock_maker(int h,int m,int s)"
+NODE:F LEVEL:0 LINE:399 "sub3(void)"

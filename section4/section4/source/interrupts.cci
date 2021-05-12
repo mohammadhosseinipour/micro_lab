@@ -1,0 +1,12 @@
+VERSION:3 SOURCE_TIMESTAMP:51590DBC
+NODE:I LEVEL:0 LINE:1 "C:\cvavr\BIN\micro LAB\section4\source\header.h"
+NODE:V LEVEL:0 LINE:3 "flag -> R4,R5"
+NODE:V LEVEL:0 LINE:3 "hour -> R6,R7"
+NODE:V LEVEL:0 LINE:3 "min -> R8,R9"
+NODE:V LEVEL:0 LINE:3 "sec -> R10,R11"
+NODE:V LEVEL:0 LINE:3 "count -> R12,R13"
+NODE:V LEVEL:0 LINE:4 "buffer -> RAM:????"
+NODE:F LEVEL:0 LINE:10 "ext_int0_isr(void)"
+NODE:F LEVEL:0 LINE:17 "ext_int1_isr(void)"
+NODE:F LEVEL:0 LINE:36 "ext_int2_isr(void)"
+NODE:F LEVEL:0 LINE:69 "timer0_ovf_isr(void)"

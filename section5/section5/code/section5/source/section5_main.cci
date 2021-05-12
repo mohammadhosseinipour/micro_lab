@@ -1,0 +1,13 @@
+VERSION:3 SOURCE_TIMESTAMP:5168B6DC
+NODE:I LEVEL:0 LINE:24 "C:\cvavr\BIN\micro LAB\section5\source\header.h"
+NODE:V LEVEL:0 LINE:27 "buffer -> RAM:????"
+NODE:V LEVEL:0 LINE:28 "dor -> R4,R5"
+NODE:V LEVEL:0 LINE:29 "i -> R6,R7"
+NODE:V LEVEL:0 LINE:29 "flag -> R8,R9"
+NODE:V LEVEL:0 LINE:30 "phase_sp -> R10,R11"
+NODE:F LEVEL:0 LINE:32 "timer1_ovf_isr(void)"
+NODE:F LEVEL:0 LINE:42 "timer1_capt_isr(void)"
+NODE:F LEVEL:0 LINE:49 "timer2_comp_isr(void)"
+NODE:F LEVEL:0 LINE:132 "sub1(void)"
+NODE:F LEVEL:0 LINE:146 "sub3(void)"
+NODE:F LEVEL:0 LINE:171 "main(void)"
